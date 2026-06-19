@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff5a1f">
+  <meta name="description" content="Interactive Structured Interview Scorecard for recruiters.">
+  <title>Structured Interview Scorecard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="BairesDev scorecard home">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <span>BairesDev</span>
+      </a>
+      <button class="history-button" id="historyButton" type="button" aria-label="Open saved interview history">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5M12 7v5l3 2"/></svg>
+        <span>History</span>
+      </button>
+    </nav>
+
+    <div class="hero-content shell" id="top">
+      <p class="eyebrow">Recruiter performance tool</p>
+      <h1>Structured Interview<br><span>Scorecard</span></h1>
+      <p class="hero-copy">A practical guide to help you lead consistent, engaging, and effective interviews—from preparation to close.</p>
+      <div class="hero-meta" aria-label="Scorecard overview">
+        <span><strong>16</strong> key behaviors</span>
+        <span><strong>4</strong> interview stages</span>
+        <span><strong>1</strong> point each</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell main-layout">
+    <section class="score-panel" aria-labelledby="scoreTitle">
+      <div>
+        <p class="score-label" id="scoreTitle">Interview effectiveness score</p>
+        <p class="score-number"><span id="scoreValue">0</span><span>/16</span></p>
+      </div>
+      <div class="score-status">
+        <span class="status-pill needs-improvement" id="statusPill">Needs Improvement</span>
+        <p id="statusMessage">Start checking behaviors as you go.</p>
+      </div>
+      <div class="progress-track" role="progressbar" aria-label="Interview score" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0">
+        <span id="progressBar"></span>
+      </div>
+      <div class="score-scale" aria-hidden="true">
+        <span>0</span><span>10</span><span>14</span><span>16</span>
+      </div>
+    </section>
+
+    <form id="scorecardForm">
+      <section class="candidate-card" aria-labelledby="candidateDetailsTitle">
+        <div class="section-heading">
+          <span class="section-number" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/></svg>
+          </span>
+          <div>
+            <p class="section-kicker">Interview details</p>
+            <h2 id="candidateDetailsTitle">Candidate information</h2>
+          </div>
+        </div>
+        <div class="candidate-grid">
+          <label class="field candidate-name-field">
+            <span>Candidate name</span>
+            <input id="candidateName" name="candidateName" type="text" autocomplete="name" placeholder="Enter full name" required>
+          </label>
+          <label class="field">
+            <span>Interview date</span>
+            <input id="interviewDate" name="interviewDate" type="date" required>
+          </label>
+          <label class="field position-field">
+            <span>Desired position(s)</span>
+            <input id="desiredPositions" name="desiredPositions" type="text" placeholder="e.g. Senior Developer, Tech Lead" required>
+          </label>
+        </div>
+      </section>
+
+      <div class="sections" id="scorecardSections"></div>
+
+      <section class="debrief-card" aria-labelledby="debriefTitle">
+        <div class="section-heading">
+          <span class="section-number">✓</span>
+          <div>
+            <p class="section-kicker">After the interview</p>
+            <h2 id="debriefTitle">Quick debrief</h2>
+          </div>
+        </div>
+        <div class="debrief-grid">
+          <label>
+            <span>What went well?</span>
+            <textarea id="wentWell" rows="4" placeholder="Capture the strongest moments..."></textarea>
+          </label>
+          <label>
+            <span>What could improve next time?</span>
+            <textarea id="toImprove" rows="4" placeholder="Note one behavior to practice..."></textarea>
+          </label>
+        </div>
+      </section>
+
+      <div class="form-actions">
+        <button class="secondary-button" id="resetButton" type="button">Reset scorecard</button>
+        <button class="primary-button" type="submit">
+          Complete &amp; save interview
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <div class="shell">Structured Interview Scorecard · BairesDev</div>
+  </footer>
+
+  <dialog class="tip-dialog" id="tipDialog" aria-labelledby="tipTitle">
+    <button class="dialog-close" type="button" id="closeTipButton" aria-label="Close tip">×</button>
+    <span class="dialog-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M9 18h6m-5 3h4M8.2 14.5A7 7 0 1 1 15.8 14.5c-.6.5-.8 1.2-.8 1.5H9c0-.3-.2-1-.8-1.5Z"/></svg>
+    </span>
+    <p class="dialog-kicker">SME insight</p>
+    <h2 id="tipTitle">Practical tip</h2>
+    <p id="tipText"></p>
+    <button class="primary-button full-width" id="gotItButton" type="button">Got it</button>
+  </dialog>
+
+  <dialog class="history-dialog" id="historyDialog" aria-labelledby="historyTitle">
+    <div class="history-header">
+      <div>
+        <p class="dialog-kicker">Saved locally</p>
+        <h2 id="historyTitle">Interview history</h2>
+      </div>
+      <button class="dialog-close inline-close" type="button" id="closeHistoryButton" aria-label="Close history">×</button>
+    </div>
+    <div id="historyList" class="history-list"></div>
+    <button class="text-button" id="clearHistoryButton" type="button">Clear history</button>
+  </dialog>
+
+  <dialog class="completion-dialog" id="completionDialog" aria-labelledby="completionTitle">
+    <span class="completion-check" aria-hidden="true">✓</span>
+    <p class="dialog-kicker">Interview saved</p>
+    <h2 id="completionTitle">Score: <span id="completionScore">0/16</span></h2>
+    <p class="completion-result" id="completionResult">Needs Improvement</p>
+    <p>Your result and notes are safely stored on this device.</p>
+    <button class="primary-button full-width" id="closeCompletionButton" type="button">Done</button>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
